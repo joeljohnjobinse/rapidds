@@ -1,141 +1,86 @@
-# rapidds
+# 🚀 rapidds
 
-**rapidds** is a lightweight data assessment library designed to help analysts and data scientists
-understand, evaluate, and prepare datasets **without introducing hidden assumptions**.
+**rapidds makes data science simpler.**
 
-It focuses on surfacing data risks early, providing transparent recommendations,
-and keeping the analyst fully in control.
+Instead of spending time figuring out *what* to analyze, `rapidds`
+guides you.
 
----
+Whether you're a student exploring your first dataset or a developer
+prototyping quickly, `rapidds` helps you understand your data without
+overthinking the process.
 
-## Why rapidds exists
+------------------------------------------------------------------------
 
-Many data science workflows fail early due to:
+## ✨ What rapidds Does
 
-- Silent data quality issues
-- Implicit or automatic cleaning decisions
-- Poor visibility into data risks before modeling
+`rapidds` provides a guided dataset companion that helps you:
 
-rapidds addresses these problems by **separating judgment from execution**.
+-   📊 Automatically analyze your data\
+-   🧠 Get intelligent suggestions on what to explore next\
+-   📝 Receive clear explanations in plain language\
+-   🧹 Clean and organize messy datasets
 
----
+It reduces analysis paralysis and helps you move forward with
+confidence.
 
-## Core philosophy
+------------------------------------------------------------------------
 
-rapidds follows a strict three-step approach:
+## ⚡ 60-Second Example
 
-### 1. Detect
-Identify measurable facts about the dataset  
-(e.g. missing values, imbalance, low-variance columns).
-
-### 2. Suggest
-Provide **reasoned, explainable recommendations**  
-without modifying the data.
-
-### 3. Execute
-Apply changes **only when explicitly requested** by the analyst.
-
-This mirrors how experienced analysts work in practice.
-
----
-
-## What rapidds is (and is not)
-
-### rapidds **is**
-- A data quality assessment tool
-- A thinking companion for analysts
-- A safe pre-EDA and pre-modeling step
-- Fully composable with pandas and sklearn
-
-### rapidds **is not**
-- An AutoML system
-- A replacement for pandas or sklearn
-- A black-box decision maker
-- A tool that silently mutates data
-
----
-
-## Installation
-
-For now, rapidds is intended for local development or internal use.
-
-```bash
-pip install -e .
-```
-
-(Public distribution may follow once the API stabilizes.)
-
----
-
-## Quick example
-
-```python
+``` python
 from rapidds import Dataset
 
-ds = Dataset(df)
+data = Dataset("students.csv")
 
-# Inspect the dataset
-ds.explain()
-
-# Apply cleaning explicitly
-df_clean = ds.clean(
-    num_missing="median",
-    cat_missing="mode"
-)
+data.analyze()
+data.suggest()
+data.explain()
 ```
 
-rapidds will **never** clean or modify data unless you ask it to.
+That's it.
 
----
+No complex setup.\
+No guessing what to do next.\
+Just guided insights.
 
-## Example output
+------------------------------------------------------------------------
 
+## 🎯 Philosophy
+
+Most data science tools assume you already know what you're looking for.
+
+`rapidds` is built on a different idea:
+
+> You shouldn't need to know what to analyze before you start.
+
+It helps you discover patterns, issues, and directions --- especially
+when you're not sure where to begin.
+
+------------------------------------------------------------------------
+
+## 🛠 Installation
+
+(Currently under development)
+
+``` bash
+pip install rapidds
 ```
-rapidds — dataset assessment
-----------------------------
 
-HIGH PRIORITY:
- • 'Cabin' has 77% missing values, which may limit its usefulness.
+------------------------------------------------------------------------
 
-MEDIUM PRIORITY:
- • 'Age' has substantial missing values; targeted imputation may be appropriate.
- • 'Survived' shows class imbalance; stratified sampling is recommended.
+## 📦 Project Status
 
-LOW PRIORITY:
- • 'Embarked' contains missing values; mode imputation is commonly used.
+`v0.1.0` --- Initial stable release\
+Core features include dataset analysis, suggestions, explanations, and
+cleaning utilities.
 
-Review suggestions before applying any cleaning steps.
-```
+More improvements and structured returns are planned for future
+versions.
 
----
+------------------------------------------------------------------------
 
-## Design principles
+## 🤝 Who is rapidds for?
 
-- Explicit over implicit
-- No silent data mutation
-- Conservative defaults
-- Transparent recommendations
-- Analyst remains in control
-
-These principles are enforced by design, not convention.
-
----
-
-## Current scope
-
-rapidds currently supports:
-
-- Dataset inspection
-- Missing value detection
-- Prioritized recommendations
-- Human-readable explanations
-- Explicit cleaning execution
-- Markdown-ready reporting
-
-Future features will prioritize **clarity and trust over automation**.
-
----
-
-## License
-
-MIT License
+-   Students learning data science
+-   Developers prototyping ideas quickly
+-   Anyone who wants clearer insights without heavy setup
