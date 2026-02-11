@@ -2,4 +2,4 @@ from .dataset import Dataset
 
 __all__ = ["Dataset"]
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"

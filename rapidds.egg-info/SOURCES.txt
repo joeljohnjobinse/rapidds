@@ -1,0 +1,13 @@
+LICENSE.txt
+README.md
+pyproject.toml
+rapidds/__init__.py
+rapidds/dataset.py
+rapidds/report.py
+rapidds/visualize.py
+rapidds.egg-info/PKG-INFO
+rapidds.egg-info/SOURCES.txt
+rapidds.egg-info/dependency_links.txt
+rapidds.egg-info/top_level.txt
+tests/test_core.py
+tests/test_import.py
