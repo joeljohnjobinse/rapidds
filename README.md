@@ -1,5 +1,10 @@
 # 🚀 rapidds
 
+[![PyPI
+version](https://img.shields.io/pypi/v/rapidds.svg)](https://pypi.org/project/rapidds/)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **rapidds makes data science simpler.**
 
 Instead of spending time figuring out *what* to analyze, `rapidds`
@@ -17,11 +22,12 @@ overthinking the process.
 
 -   📊 Automatically analyze your data\
 -   🧠 Get intelligent suggestions on what to explore next\
--   📝 Receive clear explanations in plain language\
--   🧹 Clean and organize messy datasets
+-   📝 Receive explanations in clear, plain language\
+-   🧹 Identify missing values and mixed data types\
+-   🛠 Clean datasets using guided actions
 
-It reduces analysis paralysis and helps you move forward with
-confidence.
+It reduces analysis paralysis and gives you direction when you're unsure
+where to begin.
 
 ------------------------------------------------------------------------
 
@@ -37,11 +43,19 @@ data.suggest()
 data.explain()
 ```
 
-That's it.
-
 No complex setup.\
 No guessing what to do next.\
 Just guided insights.
+
+------------------------------------------------------------------------
+
+## 🛠 Installation
+
+``` bash
+pip install rapidds
+```
+
+Requires: - pandas - numpy - scikit-learn
 
 ------------------------------------------------------------------------
 
@@ -53,34 +67,35 @@ Most data science tools assume you already know what you're looking for.
 
 > You shouldn't need to know what to analyze before you start.
 
-It helps you discover patterns, issues, and directions --- especially
-when you're not sure where to begin.
+It helps you discover patterns, issues, and next steps --- especially
+when you're new to data science or exploring an unfamiliar dataset.
 
 ------------------------------------------------------------------------
 
-## 🛠 Installation
+## 📦 Current Version
 
-(Currently under development)
+`v0.1.2` --- Stable foundation release.
 
-``` bash
-pip install rapidds
-```
-
-------------------------------------------------------------------------
-
-## 📦 Project Status
-
-`v0.1.0` --- Initial stable release\
-Core features include dataset analysis, suggestions, explanations, and
-cleaning utilities.
-
-More improvements and structured returns are planned for future
-versions.
+Includes: - Missing value detection - Mixed-type column detection -
+Guided suggestions - Beginner-friendly analysis summaries - File path
+and DataFrame support
 
 ------------------------------------------------------------------------
 
-## 🤝 Who is rapidds for?
+## 🛣 Roadmap
+
+Future versions aim to include:
+
+-   Structured return objects (beyond print statements)
+-   Smarter suggestion heuristics
+-   Improved type inference
+-   Optional verbosity levels
+-   Expanded cleaning utilities
+
+------------------------------------------------------------------------
+
+## 🤝 Who Is rapidds For?
 
 -   Students learning data science
 -   Developers prototyping ideas quickly
--   Anyone who wants clearer insights without heavy setup
+-   Anyone who wants guidance before deep analysis
