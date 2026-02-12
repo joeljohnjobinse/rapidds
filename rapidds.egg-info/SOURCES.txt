@@ -8,6 +8,7 @@ rapidds/visualize.py
 rapidds.egg-info/PKG-INFO
 rapidds.egg-info/SOURCES.txt
 rapidds.egg-info/dependency_links.txt
+rapidds.egg-info/requires.txt
 rapidds.egg-info/top_level.txt
 tests/test_core.py
 tests/test_import.py

@@ -1,12 +1,15 @@
 Metadata-Version: 2.4
 Name: rapidds
-Version: 0.1.0
+Version: 0.1.1
 Summary: A beginner-friendly guided dataset companion for simpler data science.
 Author: Joel John Jobinse
 License: MIT
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
+Requires-Dist: pandas>=1.5
+Requires-Dist: numpy>=1.23
+Requires-Dist: scikit-learn>=1.3
 Dynamic: license-file
 
 # 🚀 rapidds

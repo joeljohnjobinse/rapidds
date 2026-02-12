@@ -11,17 +11,18 @@ _SEVERITY_MAP = {
     "low": 1,
 }
 
-
 class Dataset:
-    """
-    rapidds Dataset: detect, suggest, explain, and clean — explicitly.
-    """
+    def __init__(self, data):
+        if isinstance(data, str):
+            try:
+                self.df = pd.read_csv(data)
+            except Exception as e:
+                raise ValueError(f"Could not read file: {e}")
+        elif isinstance(data, pd.DataFrame):
+            self.df = data
+        else:
+            raise ValueError("Dataset expects a pandas DataFrame or a CSV file path.")
 
-    def __init__(self, df: pd.DataFrame):
-        if not isinstance(df, pd.DataFrame):
-            raise TypeError("Dataset expects a pandas DataFrame")
-
-        self.df = df.copy()
 
     def __repr__(self):
         rows, cols = self.df.shape
@@ -38,6 +39,20 @@ class Dataset:
     # --------------------
     def analyze(self) -> dict:
         df = self.df
+
+        for col in self.df.columns:
+            if self.df[col].dtype == "object":
+                # Try converting to numeric
+                converted = pd.to_numeric(self.df[col], errors="coerce")
+
+                # Count how many values became NaN after conversion
+                non_numeric = converted.isna().sum()
+                total = len(self.df[col])
+
+                # If most values are numeric but some failed → flag it
+                if 0 < non_numeric < total:
+                    print(f"Column '{col}' may contain mixed numeric and non-numeric values.")
+
 
         numeric_cols = df.select_dtypes(include=np.number).columns.tolist()
         categorical_cols = df.select_dtypes(exclude=np.number).columns.tolist()
