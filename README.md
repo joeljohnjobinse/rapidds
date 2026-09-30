@@ -1,101 +1,119 @@
 # 🚀 rapidds
 
-[![PyPI
-version](https://img.shields.io/pypi/v/rapidds.svg)](https://pypi.org/project/rapidds/)
-[![License:
-MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 **rapidds makes data science simpler.**
 
-Instead of spending time figuring out *what* to analyze, `rapidds`
-guides you.
+rapidds is a guided dataset companion built around a simple workflow:
 
-Whether you're a student exploring your first dataset or a developer
-prototyping quickly, `rapidds` helps you understand your data without
-overthinking the process.
+> **Detect → Suggest → Execute**
 
-------------------------------------------------------------------------
+It sits on top of pandas and scientific Python libraries and helps you understand what is happening in an unfamiliar dataset before you start making transformations.
 
 ## ✨ What rapidds Does
 
-`rapidds` provides a guided dataset companion that helps you:
+- 📊 Profile datasets automatically
+- 🧠 Detect common data-quality and modeling issues
+- 💡 Suggest practical next steps with severity and confidence
+- 🧹 Clean data explicitly or with conservative `auto_clean()`
+- 📈 Explore statistics and relationships
+- 🛠 Prepare data for machine learning
+- 📏 Evaluate classification, regression, and clustering models
+- 📝 Produce human-readable inspection reports
 
--   📊 Automatically analyze your data\
--   🧠 Get intelligent suggestions on what to explore next\
--   📝 Receive explanations in clear, plain language\
--   🧹 Identify missing values and mixed data types\
--   🛠 Clean datasets using guided actions
+## ⚡ Quick Start
 
-It reduces analysis paralysis and gives you direction when you're unsure
-where to begin.
-
-------------------------------------------------------------------------
-
-## ⚡ 60-Second Example
-
-``` python
+```python
 from rapidds import Dataset
 
-data = Dataset("students.csv")
+ds = Dataset("students.csv")
 
-data.analyze()
-data.suggest()
-data.explain()
+print(ds.profile())
+ds.explain()
 ```
 
-No complex setup.\
-No guessing what to do next.\
-Just guided insights.
+### Guided cleaning
 
-------------------------------------------------------------------------
+```python
+# See what rapidds would change without modifying the data
+preview, plan = ds.auto_clean(dry_run=True)
+print(plan)
 
-## 🛠 Installation
-
-``` bash
-pip install rapidds
+# Apply conservative, high-confidence fixes
+cleaned = ds.auto_clean()
 ```
 
-Requires: - pandas - numpy - scikit-learn
+By default, `auto_clean()` can remove exact duplicates, fill straightforward missing values, convert unambiguously numeric strings, and trim whitespace. It does **not** automatically drop columns, remove outliers, or rewrite semantic labels unless you explicitly opt in.
 
-------------------------------------------------------------------------
+### Data science utilities
+
+```python
+profile = ds.profile()
+quality = ds.quality()
+corr = ds.correlation()
+outliers = ds.outliers("income")
+
+X, y, warnings = ds.prepare_for_modeling("target")
+X_train, X_test, y_train, y_test, warnings = ds.split("target", stratify=True)
+```
+
+## 🧩 Architecture
+
+```text
+Dataset
+  │
+  ├── analysis
+  │   ├── profile
+  │   ├── quality
+  │   ├── statistics
+  │   └── outliers
+  │
+  ├── cleaning
+  │   ├── missing values
+  │   ├── duplicates
+  │   ├── type fixes
+  │   └── text standardization
+  │
+  ├── transform
+  │   ├── scaling
+  │   ├── encoding
+  │   ├── datetime features
+  │   └── numeric transforms
+  │
+  ├── modeling
+  │   └── evaluation
+  │
+  └── reporting
+```
 
 ## 🎯 Philosophy
 
-Most data science tools assume you already know what you're looking for.
+Most data science tools assume you already know what you are looking for. rapidds is designed for the earlier part of the workflow: **what is in this dataset, what looks unusual, why might it matter, and what could I do next?**
 
-`rapidds` is built on a different idea:
+It does not try to hide decisions behind a black box. Suggestions are structured and automatic actions are auditable.
 
-> You shouldn't need to know what to analyze before you start.
+## 🛠 Installation
 
-It helps you discover patterns, issues, and next steps --- especially
-when you're new to data science or exploring an unfamiliar dataset.
+```bash
+pip install rapidds
+```
 
-------------------------------------------------------------------------
+For development:
 
-## 📦 Current Version
+```bash
+pip install -e .
+pytest
+```
 
-`v0.1.2` --- Stable foundation release.
+## 📦 Version
 
-Includes: - Missing value detection - Mixed-type column detection -
-Guided suggestions - Beginner-friendly analysis summaries - File path
-and DataFrame support
-
-------------------------------------------------------------------------
-
-## 🛣 Roadmap
-
-Future versions aim to include:
-
--   Structured return objects (beyond print statements)
--   Smarter suggestion heuristics
--   Improved type inference
--   Optional verbosity levels
--   Expanded cleaning utilities
-
-------------------------------------------------------------------------
+`v0.2.0` expands the original foundation with structured profiling, data-quality checks, outlier detection, statistics, transformations, model evaluation, and conservative automated cleaning.
 
 ## 🤝 Who Is rapidds For?
 
--   Students learning data science
--   Developers prototyping ideas quickly
--   Anyone who wants guidance before deep analysis
+- Students learning data science
+- Developers prototyping quickly
+- Analysts exploring unfamiliar datasets
+- Data scientists who want a lightweight first-pass diagnostic layer
+
+## 📜 License
+
+MIT

@@ -10,5 +10,17 @@ rapidds.egg-info/SOURCES.txt
 rapidds.egg-info/dependency_links.txt
 rapidds.egg-info/requires.txt
 rapidds.egg-info/top_level.txt
+rapidds/analysis/__init__.py
+rapidds/analysis/outliers.py
+rapidds/analysis/profile.py
+rapidds/analysis/quality.py
+rapidds/analysis/statistics.py
+rapidds/cleaning/__init__.py
+rapidds/cleaning/core.py
+rapidds/cleaning/policy.py
+rapidds/modeling/__init__.py
+rapidds/modeling/evaluate.py
+rapidds/transform/__init__.py
+rapidds/transform/core.py
 tests/test_core.py
 tests/test_import.py
