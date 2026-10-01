@@ -1,4 +1,20 @@
 # Changelog
+## 0.2.2
+
+- Added transformation provenance/history tracking to `Dataset`.
+- Added `Dataset.export()` for CSV, Excel, JSON, Parquet, and HTML output.
+- Added provenance-aware Excel reports with `Cleaned_Data`, `Changes`, `Quality`, `Suggestions`, `Analysis`, and `Metadata` sheets.
+- Added `Dataset.report()` for human-readable HTML/Excel reports.
+- Added JSON-safe report serialization and informative optional Parquet dependency errors.
+- Existing cleaning/transformation APIs remain backward compatible.
+- Added evidence-scored suggestion confidence and priority ranking.
+- Added dataset context and semantic column-role inference.
+- Added conservative target/task inference for classification and regression workflows.
+- Added compound reasoning for skew + missingness, outliers + skew, high-cardinality features, target imbalance, and possible leakage.
+- Added `SuggestionPlan` with `summary()`, `show()`, approval helpers, and `auto_clean(plan=...)` integration.
+- Added workflow stages and explicit recommendation dependencies.
+- Added tests for semantic inference, task inference, suggestion plans, and plan-driven cleaning.
+
 
 ## 0.2.0
 

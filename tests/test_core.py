@@ -126,3 +126,74 @@ def test_auto_clean_report_records_skipped_risky_actions():
     ds.auto_clean(policy="conservative", target=None)
     assert "skipped" in ds.last_cleaning_report
     assert ds.last_cleaning_report["policy"] == "conservative"
+
+
+def test_suggestion_plan_has_context_roles_and_priorities():
+    df = pd.DataFrame({
+        "customer_id": range(1, 31),
+        "income": [100, 110, None, 130, 150, 160, 180, 200, 220, 1000] * 3,
+        "city": ["Chennai", "chennai", " Chennai "] * 10,
+        "joined": ["2026-01-01", "2026-01-02", "2026-01-03"] * 10,
+        "fraud": [0] * 27 + [1, 1, 1],
+    })
+    ds = Dataset(df)
+    plan = ds.suggestion_plan(target="fraud", profile="ml")
+    assert plan.context["task"] == "binary_classification"
+    assert plan.context["roles"]["customer_id"]["role"] == "identifier"
+    assert len(plan) > 0
+    assert [s["priority"] for s in plan] == list(range(1, len(plan) + 1))
+    assert all("confidence_score" in s and "priority_score" in s for s in plan)
+
+
+def test_semantic_and_task_inference():
+    df = pd.DataFrame({
+        "user_id": [1, 2, 3, 4],
+        "created_at": ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04"],
+        "income": [100, 200, 300, 400],
+        "churn": [0, 1, 0, 1],
+    })
+    ds = Dataset(df)
+    assert ds.infer_task("churn")["task"] == "binary_classification"
+    assert ds.roles(target="churn")["user_id"]["role"] == "identifier"
+    assert ds.roles(target="churn")["created_at"]["role"] == "datetime"
+
+
+def test_auto_clean_accepts_suggestion_plan():
+    df = pd.DataFrame({"value": ["1", "2", "3"], "name": [" A", "B ", "C"]})
+    ds = Dataset(df)
+    plan = ds.suggestion_plan()
+    cleaned, report = ds.auto_clean(plan=plan, dry_run=True)
+    assert pd.api.types.is_numeric_dtype(cleaned["value"])
+    assert report["dry_run"] is True
+
+
+def test_history_tracks_cleaning_and_export(tmp_path):
+    ds = Dataset(pd.DataFrame({"age": [20, None, 30], "name": [" A", "B ", "C"]}))
+    ds.fill_missing()
+    ds.standardize_labels(["name"], case="lower")
+    assert len(ds.history_report()) == 2
+    assert ds.history_report()[0]["action"] == "fill_missing"
+
+    csv_path = ds.export(tmp_path / "cleaned.csv")
+    assert csv_path.exists()
+    assert pd.read_csv(csv_path).shape == ds.df.shape
+
+
+def test_excel_export_contains_audit_sheets(tmp_path):
+    ds = Dataset(pd.DataFrame({"age": [20, None, 30], "name": ["A", "B", "C"]}))
+    ds.auto_clean()
+    path = ds.export(tmp_path / "report.xlsx")
+    import openpyxl
+    book = openpyxl.load_workbook(path, read_only=True)
+    assert {"Cleaned_Data", "Changes", "Quality", "Suggestions", "Analysis", "Metadata"}.issubset(book.sheetnames)
+
+
+def test_json_and_html_exports(tmp_path):
+    ds = Dataset(pd.DataFrame({"a": [1, 2], "b": ["x", "y"]}))
+    json_path = ds.export(tmp_path / "data.json")
+    html_path = ds.report(tmp_path / "report.html")
+    assert json_path.exists() and html_path.exists()
+    import json
+    payload = json.loads(json_path.read_text())
+    assert "data" in payload and "quality" in payload
+    assert "rapidds Data Report" in html_path.read_text()

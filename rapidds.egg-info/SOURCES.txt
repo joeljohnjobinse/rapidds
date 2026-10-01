@@ -3,6 +3,8 @@ README.md
 pyproject.toml
 rapidds/__init__.py
 rapidds/dataset.py
+rapidds/export.py
+rapidds/provenance.py
 rapidds/report.py
 rapidds/visualize.py
 rapidds.egg-info/PKG-INFO
@@ -11,6 +13,7 @@ rapidds.egg-info/dependency_links.txt
 rapidds.egg-info/requires.txt
 rapidds.egg-info/top_level.txt
 rapidds/analysis/__init__.py
+rapidds/analysis/intelligence.py
 rapidds/analysis/outliers.py
 rapidds/analysis/profile.py
 rapidds/analysis/quality.py

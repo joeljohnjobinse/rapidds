@@ -117,3 +117,26 @@ pytest
 ## 📜 License
 
 MIT
+
+## Export, reports, and transformation history
+
+`Dataset` can preserve a lightweight provenance trail as you clean and transform data:
+
+```python
+ds = Dataset("customers.csv")
+ds.auto_clean()
+ds.standardize_labels(["city"], case="lower")
+
+print(ds.history_report())
+
+# Data export
+ds.export("customers_cleaned.csv")
+ds.export("customers_cleaned.xlsx")
+ds.export("customers_cleaned.json")
+ds.export("customers_cleaned.parquet")
+
+# Human-readable report
+ds.report("customers_report.html")
+```
+
+Excel exports include separate `Cleaned_Data`, `Changes`, `Quality`, `Suggestions`, `Analysis`, and `Metadata` sheets. CSV and Parquet remain focused on the tabular dataset, while JSON and HTML can include provenance and analysis. Parquet requires `pyarrow` or `fastparquet`.
